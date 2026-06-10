@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
 import FadeIn from './FadeIn';
+import { TypeAnimation } from 'react-type-animation';
+
 
 const NAV_LINKS = [
   { label: 'About', href: '#about' },
@@ -113,7 +115,22 @@ const HeroSection = () => {
 
             <FadeIn delay={0.85} y={20}>
               <p className="mt-5 md:mt-7 text-[10px] sm:text-xs md:text-sm font-medium uppercase tracking-[0.3em] text-white/75">
-                Developer · Designer · GenAI Integration
+                <TypeAnimation
+                  sequence={[
+                    'Developer',
+                    2000,
+                    'Designer',
+                    2000,
+                    'GenAI Integration',
+                    2000,
+                    'Full Stack Developer',
+                    2000,
+                  ]}
+                  speed={60}
+                  repeat={Infinity}
+                  cursor={true}
+                  wrapper="span"
+                />
               </p>
             </FadeIn>
           </div>
