@@ -119,7 +119,7 @@ const HeroSection = () => {
                   sequence={[
                     'Developer',
                     2000,
-                    'Designer',
+                    'Product Designer',
                     2000,
                     'GenAI Integration',
                     2000,

@@ -10,18 +10,17 @@ interface ContactMethod {
 
 const CONTACT_METHODS: ContactMethod[] = [
   {
-    icon: Mail,
-    label: 'Email',
-    value: 'hamadhismail04@gmail.com',
-    href: 'mailto:hamadhismail04@gmail.com',
-  },
-  {
-    icon: MessageCircle,
-    label: 'WhatsApp',
-    value: '+91 9962736287',
-    // wa.me requires digits only — no +, no spaces, no hyphens
-    href: 'https://wa.me/919962736287',
-  },
+  icon: Mail,
+  label: 'Email',
+  value: 'hamadhismail04@gmail.com',
+  href: 'mailto:hamadhismail04@gmail.com?subject=Project%20Inquiry&body=Hello%20Hamadh,%0A%0AI%20visited%20your%20portfolio%20website%20and%20would%20like%20to%20know%20more%20about%20your%20services.%0A%0AThank%20you.'
+},
+ {
+  icon: MessageCircle,
+  label: 'WhatsApp',
+  value: '+91 9962736287',
+  href: 'https://wa.me/919962736287?text=Hi%20Hamadh,%20can%20I%20get%20more%20information%20about%20your%20services?'
+},
   {
     icon: Linkedin,
     label: 'LinkedIn',

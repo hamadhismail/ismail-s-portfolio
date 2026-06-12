@@ -3,7 +3,7 @@ import ContactButton from './ContactButton';
 import AnimatedText from './AnimatedText';
 
 const ABOUT_TEXT =
-  "Computer Science Student | Web Developer | AI Enthusiast,Passionate about building modern, user-friendly digital experiences and exploring the intersection of technology, business, and artificial intelligence. Skilled in website development, UI/UX design, ecommerce solutions, and emerging AI tools. Constantly learning, creating, and working on projects that solve real-world problems. Open to collaborations, internships, and exciting opportunities in technology and innovation.";
+  "I'm a Computer Science student focused on building fast, functional, and user-centered digital products. My interests span web development, AI-powered applications, UI/UX design, and e-commerce solutions. I enjoy turning ideas into practical projects that solve real problems and create meaningful user experiences. Through continuous experimentation and hands-on development, I aim to bridge technology, business, and innovation.";
 
 const AboutSection = () => {
   return (
@@ -39,7 +39,7 @@ const AboutSection = () => {
                           },
                           {
                             label: 'Frameworks & Libraries',
-                            items: ['React', 'Tailwind', 'Pandas', 'NumPy', 'Scikit-learn', 'NLTK'],
+                            items: ['React', 'Tailwind', 'Pandas', 'NumPy',],
                           },
                           {
                             label: 'Tools & Platforms',
