@@ -31,7 +31,7 @@ const CONTACT_METHODS: ContactMethod[] = [
     icon: Github,
     label: 'GitHub',
     value: '@hamadhismail04',
-    href: 'https://github.com/hamadhismail04',
+    href: 'https://github.com/hamadhismail',
   },
 ];
 
