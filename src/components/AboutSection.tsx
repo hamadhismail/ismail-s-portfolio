@@ -1,81 +1,182 @@
-import FadeIn from './FadeIn';
-import ContactButton from './ContactButton';
-import AnimatedText from './AnimatedText';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const ABOUT_TEXT =
-  "I'm a Computer Science student focused on building fast, functional, and user-centered digital products. My interests span web development, AI-powered applications, UI/UX design, and e-commerce solutions. I enjoy turning ideas into practical projects that solve real problems and create meaningful user experiences. Through continuous experimentation and hands-on development, I aim to bridge technology, business, and innovation.";
+gsap.registerPlugin(ScrollTrigger);
 
 const AboutSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const line1Ref = useRef<HTMLDivElement>(null);
+  const line2Ref = useRef<HTMLDivElement>(null);
+  const line3Ref = useRef<HTMLDivElement>(null);
+  const paragraphRef = useRef<HTMLParagraphElement>(null);
+  const infoBlocksRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Line-by-line reveal using clip-path, yPercent, opacity, scale
+      const lines = [line1Ref.current, line2Ref.current, line3Ref.current];
+
+      lines.forEach((line) => {
+        if (!line) return;
+        gsap.fromTo(
+          line,
+          {
+            clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0 100%)',
+            yPercent: 80,
+            opacity: 0,
+            scale: 0.95,
+          },
+          {
+            scrollTrigger: {
+              trigger: line,
+              start: 'top 88%',
+              end: 'top 55%',
+              scrub: 0.8,
+            },
+            clipPath: 'polygon(0 0%, 100% 0%, 100% 100%, 0 100%)',
+            yPercent: 0,
+            opacity: 1,
+            scale: 1,
+            ease: 'none',
+          }
+        );
+      });
+
+      // Bio paragraph reveal
+      gsap.fromTo(
+        paragraphRef.current,
+        { opacity: 0, y: 30 },
+        {
+          scrollTrigger: {
+            trigger: paragraphRef.current,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: 'power3.out',
+        }
+      );
+
+      // Info blocks reveal
+      if (infoBlocksRef.current) {
+        gsap.fromTo(
+          infoBlocksRef.current.children,
+          { opacity: 0, y: 25 },
+          {
+            scrollTrigger: {
+              trigger: infoBlocksRef.current,
+              start: 'top 90%',
+              toggleActions: 'play none none none',
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'power3.out',
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="about"
-      className="relative flex min-h-screen w-full items-center justify-center overflow-hidden px-5 sm:px-8 md:px-10 py-20"
+      className="relative min-h-screen w-full bg-[#050505] text-white px-6 md:px-12 py-32 md:py-44 flex flex-col justify-between border-t border-white/[0.15]"
     >
-      {/* Center content */}
-      <div className="relative z-10 flex flex-col items-center gap-10 sm:gap-14 md:gap-16 text-center">
-        <FadeIn delay={0} y={40}>
+      <div className="mx-auto max-w-7xl w-full flex-1 flex flex-col justify-between">
+        {/* Top: 01 / ABOUT */}
+        <div className="flex items-center justify-between border-b border-white/[0.15] pb-5 mb-16 md:mb-24">
+          <span className="font-mono text-xs sm:text-sm tracking-[0.3em] uppercase text-white">
+            01 / ABOUT
+          </span>
+          <span className="font-mono text-[10px] sm:text-xs tracking-widest text-[#8A8A8A] uppercase">
+            PROFILE & PHILOSOPHY
+          </span>
+        </div>
+
+        {/* Main Huge Typography:
+            I BUILD
+            DIGITAL
+            EXPERIENCES.
+        */}
+        <div className="my-auto py-10">
           <h2
-            className="hero-heading font-black uppercase leading-none tracking-tight"
-            style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
+            className="font-grotesk font-black uppercase tracking-tight text-white leading-[0.88]"
+            style={{ fontSize: 'clamp(3rem, 11vw, 9.5rem)' }}
           >
-            About me
+            <div className="overflow-hidden mb-2">
+              <div ref={line1Ref} className="will-change-transform">
+                I BUILD
+              </div>
+            </div>
+            <div className="overflow-hidden mb-2">
+              <div ref={line2Ref} className="will-change-transform text-white/95">
+                DIGITAL
+              </div>
+            </div>
+            <div className="overflow-hidden">
+              <div ref={line3Ref} className="will-change-transform text-[#8A8A8A]">
+                EXPERIENCES.
+              </div>
+            </div>
           </h2>
-        </FadeIn>
+        </div>
 
-          <div className="flex flex-col items-center gap-12 sm:gap-16 md:gap-20">
-                    <AnimatedText
-                      text={ABOUT_TEXT}
-                      className="font-medium leading-relaxed text-[#D7E2EA] max-w-[560px]"
-                      style={{ fontSize: 'clamp(1rem, 2vw, 1.35rem)' }}
-                    />
+        {/* Bottom Details Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 pt-16 border-t border-white/[0.15] items-start">
+          {/* Paragraph */}
+          <div className="lg:col-span-7">
+            <p
+              ref={paragraphRef}
+              className="text-base sm:text-lg md:text-xl font-light leading-relaxed text-[#8A8A8A] max-w-2xl"
+            >
+              Full-stack developer focused on building premium digital products,
+              scalable web applications and experiences that combine technology,
+              design and business logic.
+            </p>
+          </div>
 
-                    {/* Skills */}
-                    <FadeIn delay={0.15} className="w-full max-w-3xl">
-                      <div className="flex flex-col gap-5 sm:gap-6">
-                        {[
-                          {
-                            label: 'Languages',
-                            items: ['Python', 'JavaScript', 'HTML', 'CSS', 'SQL'],
-                          },
-                          {
-                            label: 'Frameworks & Libraries',
-                            items: ['React', 'Tailwind', 'Pandas', 'NumPy',],
-                          },
-                          {
-                            label: 'Tools & Platforms',
-                            items: ['Figma', 'Vercel', 'Git', 'GitHub', 'Power BI', 'Canva', 'Excel'],
-                          },
-                          {
-                            label: 'AI & GenAI',
-                            items: ['Gemini', 'Claude', 'OpenAI', 'Prompt engineering'],
-                          },
-                        ].map((group) => (
-                          <div
-                            key={group.label}
-                            className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-5"
-                          >
-                            <span className="text-xs uppercase tracking-widest text-[#D7E2EA]/40 sm:w-44 sm:shrink-0 sm:text-right">
-                              {group.label}
-                            </span>
-                            <div className="flex flex-wrap gap-2">
-                              {group.items.map((item) => (
-                                <span
-                                  key={item}
-                                  className="rounded-full border border-[#D7E2EA]/15 bg-[#D7E2EA]/[0.03] px-3 py-1 text-sm text-[#D7E2EA]/80 hover:border-[#D7E2EA]/40 hover:text-[#D7E2EA] transition-colors"
-                                >
-                                  {item}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </FadeIn>
+          {/* Small info blocks */}
+          <div
+            ref={infoBlocksRef}
+            className="lg:col-span-5 grid grid-cols-2 sm:grid-cols-3 gap-6 font-mono text-xs"
+          >
+            <div>
+              <span className="block text-[10px] tracking-[0.25em] text-[#8A8A8A] uppercase mb-1">
+                LOCATION
+              </span>
+              <p className="text-white font-medium tracking-wider">
+                CHENNAI / INDIA
+              </p>
+            </div>
 
-                    <FadeIn delay={0.25}>
-                      <ContactButton />
-                    </FadeIn>
-                  </div>      </div>
+            <div>
+              <span className="block text-[10px] tracking-[0.25em] text-[#8A8A8A] uppercase mb-1">
+                FOCUS
+              </span>
+              <p className="text-white font-medium tracking-wider">
+                WEB · AI · PRODUCTS
+              </p>
+            </div>
+
+            <div>
+              <span className="block text-[10px] tracking-[0.25em] text-[#8A8A8A] uppercase mb-1">
+                PROJECTS
+              </span>
+              <p className="text-white font-medium tracking-wider">
+                10+
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
