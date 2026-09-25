@@ -37,7 +37,7 @@ const HeroSection = () => {
     }
 
     const currentRole = ROLES[roleIndex];
-    let timer: NodeJS.Timeout;
+    let timer: ReturnType<typeof setTimeout>;
 
     if (!isDeleting) {
       // Typing phase: 85ms per character
